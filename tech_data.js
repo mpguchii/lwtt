@@ -237,6 +237,13 @@ const TECH_DATA = {
       ],
       [
         {
+          "name": "More Farmlands",
+          "max_level": 1,
+          "image": "images/buildings/farmland.png"
+        }
+      ],
+      [
+        {
           "name": "Food Output II",
           "max_level": 5,
           "image": "images/tech/economy/food-output.png"
@@ -271,6 +278,13 @@ const TECH_DATA = {
           "name": "Gathering Coins II",
           "max_level": 5,
           "image": "images/tech/economy/gathering-coins.png"
+        }
+      ],
+      [
+        {
+          "name": "More Iron Mines",
+          "max_level": 1,
+          "image": "images/buildings/iron-mine.png"
         }
       ],
       [
@@ -313,6 +327,13 @@ const TECH_DATA = {
       ],
       [
         {
+          "name": "More Gold Mines",
+          "max_level": 1,
+          "image": "images/buildings/gold-mine.png"
+        }
+      ],
+      [
+        {
           "name": "Food Output IV",
           "max_level": 5,
           "image": "images/tech/economy/food-output.png"
@@ -347,6 +368,25 @@ const TECH_DATA = {
           "name": "Gathering Coins IV",
           "max_level": 5,
           "image": "images/tech/economy/gathering-coins.png"
+        }
+      ],
+      [
+        {
+          "name": "Food Protection",
+          "max_level": 5,
+          "image": "images/buildings/food-warehouse.png"
+        },
+        {
+          "name": "Iron Protection",
+          "max_level": 5,
+          "image": "images/buildings/iron-warehouse.png"
+        }
+      ],
+      [
+        {
+          "name": "Coin Protection",
+          "max_level": 5,
+          "image": "images/buildings/coin-vault.png"
         }
       ]
     ]
