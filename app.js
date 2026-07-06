@@ -55,22 +55,31 @@ let totalMaxPoints = 0; // Total sum of max levels of all techs
 function initMappings() {
   let flatIndex = 0;
   for (let cat of CATEGORIES_ORDER) {
-    const techs = TECH_DATA[cat].techs;
-    for (let i = 0; i < techs.length; i++) {
-      const tech = techs[i];
-      const key = `${cat}_${i}`;
-      flatIndexToKey.push({
-        category: cat,
-        index: i,
-        name: tech.name,
-        max_level: tech.max_level
-      });
-      keyToFlatIndex[key] = flatIndex;
-      flatIndex++;
-      
-      // Initialize state to 0
-      treeLevels[key] = 0;
-      totalMaxPoints += tech.max_level;
+    const rows = TECH_DATA[cat].rows;
+    TECH_DATA[cat].flatTechs = [];
+    let idx = 0;
+    for (let r = 0; r < rows.length; r++) {
+      const row = rows[r];
+      for (let c = 0; c < row.length; c++) {
+        const tech = row[c];
+        TECH_DATA[cat].flatTechs.push(tech);
+        const key = `${cat}_${idx}`;
+        flatIndexToKey.push({
+          category: cat,
+          index: idx,
+          name: tech.name,
+          max_level: tech.max_level
+        });
+        keyToFlatIndex[key] = flatIndex;
+        flatIndex++;
+        
+        // Initialize state to 0
+        if (!(key in treeLevels)) {
+          treeLevels[key] = 0;
+        }
+        totalMaxPoints += tech.max_level;
+        idx++;
+      }
     }
   }
 }
@@ -154,7 +163,7 @@ function loadFromLocalStorage() {
           const parts = key.split('_');
           const cat = parts[0];
           const idx = parseInt(parts[1]);
-          const max_lvl = TECH_DATA[cat].techs[idx].max_level;
+          const max_lvl = TECH_DATA[cat].flatTechs[idx].max_level;
           treeLevels[key] = Math.max(0, Math.min(max_lvl, levels[key]));
         }
       }
@@ -166,7 +175,7 @@ function loadFromLocalStorage() {
 
 // STATE CALCULATIONS & UPDATES
 function calculateCategoryStats(cat) {
-  const techs = TECH_DATA[cat].techs;
+  const techs = TECH_DATA[cat].flatTechs;
   let maxedCount = 0;
   let currentPoints = 0;
   let totalCatMaxPoints = 0;
@@ -200,7 +209,7 @@ function calculateGlobalProgress() {
     const parts = key.split('_');
     const cat = parts[0];
     const idx = parseInt(parts[1]);
-    if (treeLevels[key] === TECH_DATA[cat].techs[idx].max_level) {
+    if (treeLevels[key] === TECH_DATA[cat].flatTechs[idx].max_level) {
       totalMaxedTechs++;
     }
   }
@@ -250,50 +259,6 @@ function renderCategories() {
   }
 }
 
-function groupTechsIntoRows(techs) {
-  let rows = [];
-  let currentRow = [];
-  
-  function getTechTier(name) {
-    if (name.includes(" III")) return 3;
-    if (name.includes(" II")) return 2;
-    if (name.includes(" IV")) return 4;
-    if (name.includes(" V")) return 5;
-    if (name.includes(" I")) return 1; // Check I last because II, III, IV contain I
-    return 0; // Transition/special techs
-  }
-  
-  let lastTier = null;
-  for (let i = 0; i < techs.length; i++) {
-    const tech = techs[i];
-    const tier = getTechTier(tech.name);
-    
-    // Start a new row if the tier changes, or if we hit a transition tech,
-    // or if the current row gets too large (e.g. max 5 items in a row for spacing).
-    if (lastTier !== null) {
-      const tierChanged = tier !== lastTier;
-      const isTransition = tier === 0 || lastTier === 0;
-      const rowTooBig = currentRow.length >= 5;
-      
-      if (tierChanged || isTransition || rowTooBig) {
-        rows.push(currentRow);
-        currentRow = [];
-      }
-    }
-    
-    currentRow.push({
-      ...tech,
-      originalIndex: i
-    });
-    lastTier = tier;
-  }
-  if (currentRow.length > 0) {
-    rows.push(currentRow);
-  }
-  
-  return rows;
-}
-
 function renderTechsGrid() {
   const grid = document.getElementById("techs-grid");
   grid.innerHTML = "";
@@ -305,16 +270,15 @@ function renderTechsGrid() {
   document.getElementById("active-category-progress-desc").textContent = 
     `${stats.maxedCount} of ${stats.totalTechs} researches maxed (${stats.percentage}%)`;
     
-  const techs = TECH_DATA[activeCategory].techs;
-  const rows = groupTechsIntoRows(techs);
+  const rows = TECH_DATA[activeCategory].rows;
+  let techIdx = 0;
   
   rows.forEach((row, rowIdx) => {
     const rowEl = document.createElement("div");
     rowEl.className = "tech-tree-row";
     
-    row.forEach(item => {
-      const tech = item;
-      const i = item.originalIndex;
+    row.forEach(tech => {
+      const i = techIdx++;
       const key = `${activeCategory}_${i}`;
       const level = treeLevels[key];
       const isMaxed = level === tech.max_level;
@@ -441,7 +405,7 @@ function updateGlobalState() {
 // PROFILE ACTIONS
 function setCategoryLevels(cat, type) {
   // type is 'max' or 'reset'
-  const techs = TECH_DATA[cat].techs;
+  const techs = TECH_DATA[cat].flatTechs;
   for (let i = 0; i < techs.length; i++) {
     const key = `${cat}_${i}`;
     treeLevels[key] = type === 'max' ? techs[i].max_level : 0;
@@ -452,7 +416,7 @@ function setCategoryLevels(cat, type) {
 function setAllLevels(type) {
   // type is 'max' or 'reset'
   for (let cat of CATEGORIES_ORDER) {
-    const techs = TECH_DATA[cat].techs;
+    const techs = TECH_DATA[cat].flatTechs;
     for (let i = 0; i < techs.length; i++) {
       const key = `${cat}_${i}`;
       treeLevels[key] = type === 'max' ? techs[i].max_level : 0;
