@@ -380,7 +380,7 @@ function changeTechLevel(key, delta) {
   const parts = key.split('_');
   const cat = parts[0];
   const idx = parseInt(parts[1]);
-  const tech = TECH_DATA[cat].techs[idx];
+  const tech = TECH_DATA[cat].flatTechs[idx];
   
   let newLvl = treeLevels[key] + delta;
   newLvl = Math.max(0, Math.min(tech.max_level, newLvl));
