@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last War: Survival - Research Tree Planner</title>
+    <meta name="description" content="Plan your research trees in Last War: Survival, track your progress, and generate a link to share with your alliance!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- TOP HEADER -->
+        <header class="app-header">
+            <div class="header-logo-section">
+                <div class="game-logo">LW</div>
+                <div class="title-wrapper">
+                    <h1>LAST WAR</h1>
+                </div>
+            </div>
+            
+            <div class="user-profile-section">
+                <div class="input-group">
+                    <label for="nickname">NICKNAME:</label>
+                    <input type="text" id="nickname" placeholder="Enter nickname..." maxlength="20" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="global-stats-section">
+                <div class="stat-box">
+                    <span class="stat-label">Total Progress</span>
+                    <span class="stat-value" id="global-percent">0%</span>
+                </div>
+                <div class="stat-progress-bar">
+                    <div class="fill" id="global-progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="stat-subtext">
+                    <span id="global-fraction">0 / 393</span> Researches Maxed
+                </div>
+            </div>
+
+            <div class="actions-section">
+                <button id="btn-share" class="btn btn-gold">
+                    <svg class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 10.742l4.632-2.316m0 0a3 3 0 10-4.632-2.316m4.632 2.316L13.316 13M6 21a3 3 0 110-6 3 3 0 0 1 0 6zm0-12a3 3 0 110-6 3 3 0 0 1 0 6zm12 6a3 3 0 110-6 3 3 0 0 1 0 6z" />
+                    </svg>
+                    Share
+                </button>
+                <button id="btn-max" class="btn btn-blue">
+                    Maximize All
+                </button>
+                <button id="btn-reset" class="btn btn-red">
+                    Reset All
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <div class="main-layout">
+            <!-- SIDEBAR CATEGORIES -->
+            <aside class="sidebar">
+                <div class="sidebar-header">
+                    <h2>TECH TREES</h2>
+                </div>
+                <nav class="categories-list" id="categories-nav">
+                    <!-- Dynamic rendering of categories -->
+                </nav>
+            </aside>
+
+            <!-- TECHS GRID PANEL -->
+            <main class="content-panel">
+                <div class="category-header">
+                    <div class="cat-info">
+                        <h2 id="active-category-title">Loading...</h2>
+                        <p id="active-category-progress-desc">0 of 0 researches maxed</p>
+                    </div>
+                    <div class="cat-actions">
+                        <button id="btn-max-cat" class="btn btn-sm btn-blue">Maximize Tree</button>
+                        <button id="btn-reset-cat" class="btn btn-sm btn-red">Reset Tree</button>
+                    </div>
+                </div>
+
+                <div class="techs-grid" id="techs-grid">
+                    <!-- Dynamic rendering of techs -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast-notification" id="toast">
+        <div class="toast-content">
+            <svg class="toast-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="toast-message" id="toast-msg">Link copied successfully!</span>
+        </div>
+    </div>
+
+    <!-- SHARE MODAL -->
+    <div class="modal-overlay" id="share-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close-btn">&times;</button>
+            <h3>Share Your Tree!</h3>
+            <p>Send this link to other alliance members to view your progress in real-time.</p>
+            <div class="share-url-container">
+                <input type="text" id="share-url-input" readonly>
+                <button id="btn-copy-url" class="btn btn-gold">Copy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="lz-string.min.js"></script>
+    <script src="tech_data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
