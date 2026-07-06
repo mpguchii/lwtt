@@ -1,4 +1,4 @@
-// LAST WAR: RESEARCH PLANNER - JS CONTROLLER
+// LAST WAR: TECH TREES SHARE - JS CONTROLLER
 
 const CATEGORIES_MAPPING = {
   "development": { title: "Development", icon: "images/tech/overview/development.png" },
