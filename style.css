@@ -98,6 +98,14 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 15px var(--color-gold-glow);
     border: 2px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden; /* Clips image corners */
+}
+
+.game-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .title-wrapper h1 {
@@ -402,6 +410,8 @@ body {
     flex-shrink: 0;
     transition: all 0.2s;
     color: var(--color-text-secondary);
+    overflow: hidden; /* Clips category image corners */
+    position: relative;
 }
 
 .category-btn.active .cat-icon-wrapper {
@@ -412,6 +422,13 @@ body {
 .category-btn.maxed .cat-icon-wrapper {
     color: var(--color-gold);
     border-color: rgba(245, 158, 11, 0.2);
+}
+
+.cat-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 .cat-icon-wrapper svg {
