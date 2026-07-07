@@ -10,6 +10,7 @@ const CATEGORIES_MAPPING = {
   "squad-3": { title: "Squad 3", icon: "images/tech/overview/squad-3-new.png" },
   "squad-4": { title: "Squad 4", icon: "images/tech/overview/squad-4-new.png" },
   "alliance-duel": { title: "Alliance Duel", icon: "images/tech/overview/alliance-duel-new.png" },
+  "intercity-truck": { title: "Intercity Truck", icon: "images/tech/overview/intercity-truck.png" },
   "special-forces": { title: "Special Forces", icon: "images/tech/overview/special-forces-new.png" },
   "siege-to-seize": { title: "Siege to Seize", icon: "images/tech/overview/siege-to-seize-new.png" },
   "defense-fortifications": { title: "Defense Fortifications", icon: "images/tech/overview/defense-fortifications.png" },

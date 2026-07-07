@@ -1327,6 +1327,68 @@ const TECH_DATA = {
       ]
     ]
   },
+  "intercity-truck": {
+    "title": "Intercity Truck",
+    "rows": [
+      [
+        {
+          "name": "Basic Goods",
+          "max_level": 5,
+          "image": "images/tech/intercity-truck/basic-goods.png"
+        }
+      ],
+      [
+        {
+          "name": "Attack Boost",
+          "max_level": 10,
+          "image": "images/tech/intercity-truck/attack-boost.png"
+        },
+        {
+          "name": "Defense Boost",
+          "max_level": 10,
+          "image": "images/tech/intercity-truck/defense-boost.png"
+        }
+      ],
+      [
+        {
+          "name": "Rapid Transit",
+          "max_level": 5,
+          "image": "images/tech/intercity-truck/rapid-transit.png"
+        }
+      ],
+      [
+        {
+          "name": "Plunder",
+          "max_level": 5,
+          "image": "images/tech/intercity-truck/plunder.png"
+        },
+        {
+          "name": "Lucky",
+          "max_level": 5,
+          "image": "images/tech/intercity-truck/lucky.png"
+        }
+      ],
+      [
+        {
+          "name": "Extra Truck",
+          "max_level": 1,
+          "image": "images/tech/intercity-truck/extra-truck.png"
+        }
+      ],
+      [
+        {
+          "name": "Ultimate Guard",
+          "max_level": 1,
+          "image": "images/tech/intercity-truck/ultimate-guard.png"
+        },
+        {
+          "name": "Reindeer Sleigh Ride",
+          "max_level": 1,
+          "image": "images/tech/intercity-truck/reindeer-sleigh-ride.png"
+        }
+      ]
+    ]
+  },
   "special-forces": {
     "title": "Special Forces",
     "rows": [
