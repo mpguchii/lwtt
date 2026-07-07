@@ -176,8 +176,11 @@ function loadFromLocalStorage() {
           const parts = key.split('_');
           const cat = parts[0];
           const idx = parseInt(parts[1]);
-          const max_lvl = TECH_DATA[cat].flatTechs[idx].max_level;
-          treeLevels[key] = Math.max(0, Math.min(max_lvl, levels[key]));
+          const techs = TECH_DATA[cat].flatTechs;
+          if (techs && techs[idx]) {
+            const max_lvl = techs[idx].max_level;
+            treeLevels[key] = Math.max(0, Math.min(max_lvl, levels[key]));
+          }
         }
       }
     } catch (e) {
@@ -222,7 +225,8 @@ function calculateGlobalProgress() {
     const parts = key.split('_');
     const cat = parts[0];
     const idx = parseInt(parts[1]);
-    if (treeLevels[key] === TECH_DATA[cat].flatTechs[idx].max_level) {
+    const techs = TECH_DATA[cat].flatTechs;
+    if (techs && techs[idx] && treeLevels[key] === techs[idx].max_level) {
       totalMaxedTechs++;
     }
   }
@@ -394,7 +398,9 @@ function changeTechLevel(key, delta) {
   const parts = key.split('_');
   const cat = parts[0];
   const idx = parseInt(parts[1]);
-  const tech = TECH_DATA[cat].flatTechs[idx];
+  const techs = TECH_DATA[cat].flatTechs;
+  const tech = techs ? techs[idx] : null;
+  if (!tech) return;
   
   let newLvl = treeLevels[key] + delta;
   newLvl = Math.max(0, Math.min(tech.max_level, newLvl));
