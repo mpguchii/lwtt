@@ -37,7 +37,35 @@ let totalMaxPoints = 0; // Total sum of max levels of all techs
 function initMappings() {
   let flatIndex = 0;
   for (let cat of CATEGORIES_ORDER) {
-    const rows = TECH_DATA[cat].rows;
+    // If rows is missing (cached tech_data.js), reconstruct it from techs
+    if (!TECH_DATA[cat].rows && TECH_DATA[cat].techs) {
+      const fallbackRows = [];
+      let currentRow = [];
+      let lastTier = null;
+      function getTier(name) {
+        if (name.includes(" III")) return 3;
+        if (name.includes(" II")) return 2;
+        if (name.includes(" IV")) return 4;
+        if (name.includes(" V")) return 5;
+        if (name.includes(" I")) return 1;
+        return 0;
+      }
+      for (let t of TECH_DATA[cat].techs) {
+        const tier = getTier(t.name);
+        if (lastTier !== null && (tier !== lastTier || tier === 0 || lastTier === 0 || currentRow.length >= 4)) {
+          fallbackRows.push(currentRow);
+          currentRow = [];
+        }
+        currentRow.push(t);
+        lastTier = tier;
+      }
+      if (currentRow.length > 0) {
+        fallbackRows.push(currentRow);
+      }
+      TECH_DATA[cat].rows = fallbackRows;
+    }
+
+    const rows = TECH_DATA[cat].rows || [];
     TECH_DATA[cat].flatTechs = [];
     let idx = 0;
     for (let r = 0; r < rows.length; r++) {
