@@ -84,7 +84,9 @@ function compressLevels() {
       chars.push((lvl + 1).toString(36));
     }
   }
-  const str = chars.join('');
+  let str = chars.join('');
+  // Trim trailing zeros to optimize compressed size
+  str = str.replace(/0+$/, '');
   return LZString.compressToEncodedURIComponent(str);
 }
 
@@ -117,6 +119,7 @@ function decompressLevels(hashData) {
         treeLevels[key] = Math.max(0, Math.min(max, isNaN(val) ? 0 : val));
       }
     } else {
+      // Pad missing trailing values as 0 (for trimmed hashes)
       treeLevels[key] = 0;
     }
   }
