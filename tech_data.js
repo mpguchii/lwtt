@@ -1293,37 +1293,6 @@ const TECH_DATA = {
           "max_level": 1,
           "image": "images/tech/alliance-duel/super-bonus.png"
         }
-      ],
-      [
-        {
-          "name": "Incentive - Intercity Trade",
-          "max_level": 10,
-          "image": "images/tech/alliance-duel/incentive-intercity-trade.png"
-        },
-        {
-          "name": "Incentive - Secret Mobile Squad",
-          "max_level": 10,
-          "image": "images/tech/alliance-duel/incentive-secret-mobile-squad.png"
-        },
-        {
-          "name": "Incentive - Survivor Recruit",
-          "max_level": 10,
-          "image": "images/tech/alliance-duel/incentive-survivor-recruit.png"
-        }
-      ],
-      [
-        {
-          "name": "Duel Master II",
-          "max_level": 10,
-          "image": "images/tech/alliance-duel/duel-expert.png"
-        }
-      ],
-      [
-        {
-          "name": "Infinite Roulette",
-          "max_level": 1,
-          "image": "images/tech/alliance-duel/infinite-roulette.png"
-        }
       ]
     ]
   },
